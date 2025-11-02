@@ -1,7 +1,4 @@
-import { queryOptions } from '@tanstack/react-query';
-
-import mockedDataPage1 from './mockedDataPage1.json';
-import mockedDataPage2 from './mockedDataPage2.json';
+import { queryOptions, infiniteQueryOptions } from '@tanstack/react-query';
 
 export interface Video {
   id: string;
@@ -17,21 +14,31 @@ export interface VideosList {
   list: Video[];
 }
 
-export const videosQueryOptions = (channelId: string, page?: number) =>
+export const videosQueryOptions = (channelId: string, page: number) =>
   queryOptions({
-    queryKey: ['channel', { channelId }, 'page', page || 1],
+    queryKey: ['channel', { channelId }, 'videos', page],
     queryFn: () => fetchVideo(channelId, page),
+  });
+
+export const infiniteVideosQueryOptions = (channelId: string) =>
+  infiniteQueryOptions({
+    queryKey: ['channel', { channelId: channelId }, 'videos'],
+    queryFn: ({ pageParam = 1 }) => fetchVideo(channelId, pageParam),
+    getNextPageParam: (lastPage) =>
+      lastPage.has_more ? lastPage.page + 1 : undefined,
+    initialPageParam: 1,
   });
 
 export const fetchVideo = async (
   channelId: string,
-  page?: number
+  page: number
 ): Promise<VideosList> => {
   if (!channelId) {
     throw new Error('Channel must be defined');
   }
 
-  // https://api.dailymotion.com/user/lemondefr/videos?fields=id,title,thumbnail_url&limit=40
+  const url = `https://api.dailymotion.com/user/${channelId}/videos?fields=id,title,thumbnail_url&limit=40&page=${page}`;
+  const response = await fetch(url);
 
-  return page === 1 ? mockedDataPage1 : mockedDataPage2;
+  return response.json();
 };
