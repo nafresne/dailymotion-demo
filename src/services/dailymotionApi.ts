@@ -27,11 +27,11 @@ export const fetchVideo = async (
   channelId: string,
   page?: number
 ): Promise<VideosList> => {
-  if (channelId === '') {
+  if (!channelId) {
     throw new Error('Channel must be defined');
   }
 
   // https://api.dailymotion.com/user/lemondefr/videos?fields=id,title,thumbnail_url&limit=40
 
-  return !page ? mockedDataPage1 : mockedDataPage2;
+  return page === 1 ? mockedDataPage1 : mockedDataPage2;
 };
