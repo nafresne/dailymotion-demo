@@ -30,7 +30,7 @@ export const VideoGrid = ({
     {hasMore && onLoadMore && (
       <div className="flex justify-center">
         <Button onClick={onLoadMore} disabled={isLoading} size="lg">
-          {isLoading ? 'Chargement...' : 'Load more'}
+          {isLoading ? 'Loading...' : 'Load more'}
         </Button>
       </div>
     )}
