@@ -1,7 +1,7 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { infiniteVideosQueryOptions } from '@/services/dailymotionApi';
-import { VideoGrid } from '@/components/VideoGrid';
+import { VideoGrid } from '@/components/videoGrid';
 import { NotFoundChannel } from '@/components/notFoundChannel';
 
 type IndexSearch = {
@@ -13,7 +13,9 @@ export const Route = createFileRoute('/')({
   errorComponent: NotFoundChannel,
   loaderDeps: ({ search: { channel } }) => ({ channel }),
   loader: ({ context: { queryClient }, deps: { channel } }) => {
-    return queryClient.ensureInfiniteQueryData(infiniteVideosQueryOptions(channel));
+    return queryClient.ensureInfiniteQueryData(
+      infiniteVideosQueryOptions(channel)
+    );
   },
   validateSearch: (search: Record<string, unknown>): IndexSearch => {
     return {
@@ -29,13 +31,11 @@ function Index() {
     useSuspenseInfiniteQuery(infiniteVideosQueryOptions(channel));
 
   return (
-    <div className="p-2">
-      <VideoGrid
-        videosList={data.pages}
-        hasMore={hasNextPage}
-        onLoadMore={fetchNextPage}
-        isLoading={isFetchingNextPage}
-      />
-    </div>
+    <VideoGrid
+      videosList={data.pages}
+      hasMore={hasNextPage}
+      onLoadMore={fetchNextPage}
+      isLoading={isFetchingNextPage}
+    />
   );
 }

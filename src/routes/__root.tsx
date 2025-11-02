@@ -6,12 +6,15 @@ import { ThemeProvider } from '@/components/themeProvider';
 import type { QueryClient } from '@tanstack/react-query';
 import { NotFound } from '@/components/notFound';
 import { AppHeader } from '@/components/appHeader';
+import { PageContainer } from '@/components/pageContainer';
 
 const RootLayout = () => (
   <ThemeProvider defaultTheme="dark">
     <AppHeader />
 
-    <Outlet />
+    <PageContainer>
+      <Outlet />
+    </PageContainer>
 
     <TanStackRouterDevtools />
     <ReactQueryDevtools />
