@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { VideoPlayer } from '@/components/VideoPlayer';
+import { VideoPlayer } from '@/components/videoPlayer';
 import type { Video } from '@/services/dailymotionApi';
 import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
 import { useState, type ReactNode } from 'react';
