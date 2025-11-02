@@ -1,73 +1,152 @@
-# React + TypeScript + Vite
+# Dailymotion Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern video browsing application that integrates with the Dailymotion API to display and play videos from Dailymotion channels. Built with React 19, TypeScript, and Vite for a fast and responsive user experience.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Channel Video Browser** - Browse videos from any Dailymotion channel via URL query parameters
+- **Infinite Scroll** - Load more videos with pagination (40 videos per page)
+- **Video Player Integration** - Embedded Dailymotion player with modal playback
+- **Theme System** - Light/Dark/System theme modes with persistent storage
+- **Responsive Design** - Adaptive grid layout (1-4 columns) optimized for all screen sizes
+- **Error Handling** - User-friendly error states for invalid or missing channels
+- **Developer Tools** - Built-in TanStack Query and Router DevTools for debugging
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** - Modern React with hooks and concurrent features
+- **TypeScript** - Type-safe development with strict mode
+- **Vite** - Fast build tool with hot module replacement
+- **TanStack Query** - Powerful data fetching and caching
+- **TanStack Router** - Type-safe routing solution
+- **Tailwind CSS v4** - Utility-first CSS framework
+- **shadcn/ui** - High-quality UI components built on Radix UI
+- **Dailymotion Player SDK** - Official Dailymotion video player integration
 
-## Expanding the ESLint configuration
+## Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js (version 18 or higher recommended)
+- pnpm package manager
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Installation
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```bash
+# Clone the repository
+git clone <repository-url>
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Navigate to project directory
+cd dailymotion-demo
+
+# Install dependencies
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Available Commands
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Command        | Description                                                   |
+| -------------- | ------------------------------------------------------------- |
+| `pnpm dev`     | Start the Vite development server with hot module replacement |
+| `pnpm build`   | Run TypeScript compilation and build for production           |
+| `pnpm preview` | Preview the production build locally                          |
+| `pnpm lint`    | Run ESLint to check code quality and style                    |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Usage
+
+### Development Mode
+
+```bash
+pnpm dev
 ```
+
+The application will start at `http://localhost:5173` (default Vite port).
+
+### Browse a Channel
+
+Navigate to the app with a channel query parameter:
+
+```
+http://localhost:5173/?channel=username
+```
+
+Replace `username` with any valid Dailymotion channel username.
+
+### Play Videos
+
+Click on any video card to open the player modal. The video will play using the embedded Dailymotion player and automatically close when finished.
+
+## Dependencies
+
+### Core Dependencies
+
+- **react** (^19.1.1) - JavaScript library for building user interfaces
+- **react-dom** (^19.1.1) - React package for working with the DOM
+- **@tanstack/react-query** (^5.90.6) - Data fetching and state management
+- **@tanstack/react-router** (^1.134.9) - Type-safe routing for React
+- **tailwindcss** (^4.1.16) - Utility-first CSS framework
+- **@tailwindcss/vite** (^4.1.16) - Tailwind CSS Vite plugin
+
+### Dailymotion Integration
+
+The app integrates the **Dailymotion Player SDK** dynamically by loading the player script from:
+
+```
+https://geo.dailymotion.com/libs/player/{playerId}.js
+```
+
+The player is created using the `dailymotion.createPlayer()` API and supports:
+
+- Video playback with full controls
+- Event handling (e.g., VIDEO_END event)
+- Responsive embedding in React components
+
+### UI Components
+
+- **@radix-ui/react-dialog** (^1.1.15) - Accessible dialog/modal primitives
+- **@radix-ui/react-dropdown-menu** (^2.1.16) - Dropdown menu primitives
+- **@radix-ui/react-slot** (^1.2.3) - Slot component for composition
+- **lucide-react** (^0.552.0) - Icon library with React components
+- **class-variance-authority** (^0.7.1) - Component variant management
+- **clsx** (^2.1.1) - Utility for constructing className strings
+- **tailwind-merge** (^3.3.1) - Merge Tailwind CSS classes without conflicts
+
+### Developer Tools
+
+- **@tanstack/react-query-devtools** (^5.90.2) - Query debugging interface
+- **@tanstack/react-router-devtools** (^1.134.9) - Router debugging interface
+- **eslint** (^9.36.0) - Linting utility for code quality
+- **typescript** (~5.9.3) - TypeScript compiler
+- **vite** (^7.1.7) - Build tool and development server
+
+## Development
+
+### Import Aliases
+
+The project uses `@/` as an alias for the `./src/` directory:
+
+```typescript
+import { Button } from '@/components/ui/button';
+```
+
+### Theme System
+
+The theme system uses React Context with localStorage persistence:
+
+- Themes: `light`, `dark`, `system`
+- Auto-detects OS-level dark mode preference
+- Toggle via the mode switcher in the app header
+
+### TypeScript Configuration
+
+Multi-config setup for different environments:
+
+- `tsconfig.json` - Root configuration with path mappings
+- `tsconfig.app.json` - Application-specific settings
+- `tsconfig.node.json` - Build tooling settings
+
+## License
+
+[Add your license here]
+
+## Contributing
+
+[Add contributing guidelines here]
