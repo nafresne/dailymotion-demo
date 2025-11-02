@@ -4,6 +4,7 @@ A modern video browsing application that integrates with the Dailymotion API to 
 
 ## Features
 
+- **Channel Selector** - Interactive UI to select and switch between Dailymotion channels
 - **Channel Video Browser** - Browse videos from any Dailymotion channel via URL query parameters
 - **Infinite Scroll** - Load more videos with pagination (40 videos per page)
 - **Video Player Integration** - Embedded Dailymotion player with modal playback
@@ -11,6 +12,7 @@ A modern video browsing application that integrates with the Dailymotion API to 
 - **Responsive Design** - Adaptive grid layout (1-4 columns) optimized for all screen sizes
 - **Error Handling** - User-friendly error states for invalid or missing channels
 - **Developer Tools** - Built-in TanStack Query and Router DevTools for debugging
+- **Comprehensive Testing** - Unit tests with Vitest and React Testing Library
 
 ## Tech Stack
 
@@ -22,6 +24,8 @@ A modern video browsing application that integrates with the Dailymotion API to 
 - **Tailwind CSS v4** - Utility-first CSS framework
 - **shadcn/ui** - High-quality UI components built on Radix UI
 - **Dailymotion Player SDK** - Official Dailymotion video player integration
+- **Vitest** - Fast unit testing framework with coverage support
+- **Testing Library** - React testing utilities for component testing
 
 ## Prerequisites
 
@@ -49,6 +53,7 @@ pnpm install
 | `pnpm build`   | Run TypeScript compilation and build for production           |
 | `pnpm preview` | Preview the production build locally                          |
 | `pnpm lint`    | Run ESLint to check code quality and style                    |
+| `pnpm test`    | Run unit tests with Vitest                                    |
 
 ## Usage
 
@@ -62,7 +67,11 @@ The application will start at `http://localhost:5173` (default Vite port).
 
 ### Browse a Channel
 
-Navigate to the app with a channel query parameter:
+You can browse videos in two ways:
+
+1. **Using the Channel Selector**: Click on the channel selector in the app header to choose a Dailymotion channel
+
+2. **Using URL Parameters**: Navigate directly to a channel by adding a query parameter:
 
 ```
 http://localhost:5173/?channel=username
@@ -116,6 +125,11 @@ The player is created using the `dailymotion.createPlayer()` API and supports:
 - **eslint** (^9.36.0) - Linting utility for code quality
 - **typescript** (~5.9.3) - TypeScript compiler
 - **vite** (^7.1.7) - Build tool and development server
+- **vitest** (^4.0.6) - Unit testing framework
+- **@vitest/coverage-v8** (4.0.6) - Code coverage reporting
+- **@testing-library/react** (^16.3.0) - React testing utilities
+- **@testing-library/jest-dom** (^6.9.1) - Custom jest matchers for DOM
+- **jsdom** (^27.1.0) - DOM implementation for Node.js
 
 ## Development
 
@@ -142,6 +156,28 @@ Multi-config setup for different environments:
 - `tsconfig.json` - Root configuration with path mappings
 - `tsconfig.app.json` - Application-specific settings
 - `tsconfig.node.json` - Build tooling settings
+
+### Testing
+
+The project includes comprehensive unit tests using Vitest and React Testing Library:
+
+```bash
+# Run tests in watch mode
+pnpm test
+
+# Run tests with coverage
+pnpm test --coverage
+```
+
+Test files are co-located with their components:
+- Component tests: [src/components/*.test.tsx](src/components/)
+- Service tests: [src/services/*.test.ts](src/services/)
+
+The test setup includes:
+- DOM environment via jsdom
+- Custom matchers from @testing-library/jest-dom
+- Coverage reporting with v8
+- React 19 testing utilities
 
 ## License
 
